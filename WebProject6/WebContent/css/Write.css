@@ -1,0 +1,139 @@
+.writewrap {
+
+    width: 95%;
+    height: auto;
+    border: 1.5px solid rgb(160, 160, 160);
+    border-radius: 10px;
+    margin: 5% auto;
+}
+
+.writewrap h3 {
+    margin: 3%;
+}
+
+.form-group {
+    margin-left: 3%;
+}
+
+.writewrap .form-control {
+    display: inline-block;
+    width: 80%;
+    margin-left: 2%;
+    background-color: #fff;
+}
+
+#title1 {
+    margin-left: 4%;
+}
+
+.filebox{
+    margin-left: 11.8%;
+    width: 80.8%;
+}
+
+.filebox input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.filebox label {
+    display: inline-block;
+    padding: .5em .75em;
+    color: #999;
+    font-size: inherit;
+    line-height: normal;
+    vertical-align: middle;
+    background-color: #fdfdfd;
+    cursor: pointer;
+    border: 1px solid #ebebeb;
+    border-bottom-color: #e2e2e2;
+    border-radius: .25em;
+    margin-top: 8px;
+}
+
+.filebox .upload-name {
+    display: inline-block;
+    padding: .5em .75em;
+    width: 86%;
+   
+    /* label의 패딩값과 일치 */
+    font-size: inherit;
+    font-family: inherit;
+    line-height: normal;
+    vertical-align: middle;
+    background-color: #f5f5f5;
+    border: 1px solid #ebebeb;
+    border-bottom-color: #e2e2e2;
+    border-radius: .25em;
+    -webkit-appearance: none;
+   
+    /* 네이티브 외형 감추기 */
+    -moz-appearance: none;
+    appearance: none;
+}
+
+
+
+
+.coverimgwrap {
+    width: 60%;
+    margin:3% auto;
+    
+}
+
+.coverimg {
+    border: 2px dashed pink;
+    position: relative;
+    padding-bottom: 75%;
+    overflow: hidden;
+
+}
+
+.coverimg img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-width: 100%;
+    height: auto;
+
+}
+
+.textwrap {
+    
+    position: relative;
+    width: auto;
+    height: 600px;
+    margin-left:5%;
+    margin-right:5%;
+    border: 1px solid black;
+}
+
+textarea {
+	height:92%;
+	width:100%;	
+	
+}
+
+.btnwrap {
+	margin-top:8%;
+    width: auto;
+}
+
+.btn1 {
+    width: 20%;
+    margin: auto;
+    margin-bottom: 5%;
+}
+
+.btn {
+    width: 100%;
+    background-color: rgba(255, 192, 203, 0.342);
+}
