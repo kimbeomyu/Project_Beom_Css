@@ -38,6 +38,7 @@
 				reader.readAsDataURL(f.files[0]); // 읽기 완료시 onload 이벤트 발생
 				reader.onload = function(e) {
 					$("#img-viewer").attr("src", e.target.result);
+					$("#img-viewer").show();
 					console.log(e);
 					// FileReader 객체의 result에는
 					// 파일의 컨텐츠가 담겨있음
@@ -45,6 +46,15 @@
 			}
 		}
 		
+		$(document).ready(function(){
+			$("#delFile").click(function(){
+				if(confirm("첨부파일을 삭제하시겠습니까?")){
+					$(".delFile").hide();
+					$("[name=up_file]").show();
+					$("[name=status]").val('delete');
+				}
+			});
+		});
 		
 	</script>
 	
@@ -52,9 +62,14 @@
 		<input type="hidden" name="selfNo" value="${requestScope.guideOne.selfNo }">
 		작성자ID : <input type="text" name="writerId" value="${sessionScope.member.member_ID}" readonly required> <br>
 		제목 : <input type="text" name="title" value="${requestScope.guideOne.selfTitle }"> <br>
-		<input type="file" name="up_file" onchange="fn_loadImg(this)"  required > <br>
-		<div> <img id="img-viewer" width="350" src="/upload/photo/${requestScope.guideOne.photoRenameFilename }"></div>
-		<input type="hidden" name="fileName" value="${requestScope.guideOne.photoRenameFilename }">
+		<input type="file" name="up_file" onchange="fn_loadImg(this)" style="display:none"> <br>
+		<div> <img id="img-viewer" class="delFile" width="350" src="/upload/photo/${requestScope.guideOne.photoRenameFilename }"></div>
+		
+		<input type="hidden" name="status" value="stay">
+		<button type="button" id="delFile" class="btn btn-primary btn-sm delFile">삭제</button>
+		
+		<input type="hidden" name="reFileName" value="${requestScope.guideOne.photoRenameFilename }">
+		<input type="hidden" name="oriFileName" value="${requestScope.guideOne.photoOriginalFilename }">
 		내용 : <textarea rows = "5" cols = "50" id="textAreaContent" name ="content">${requestScope.guideOne.selfContent }</textarea> <br>
 		<input type="button" id="submitButton" value="등록" onclick="return validate();"> <br>
 	</form>
@@ -94,7 +109,7 @@
 				nWidth:elIRField.style.width||elIRField.offsetWidth
 		}; */
 		
-		("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>");
+		/* ("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>"); */
 		// 파일 미리보기
 		// 미리보기하기전에 업로드가 완료됨
 		function pasteHTML(filepath){

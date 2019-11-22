@@ -1,4 +1,4 @@
-<%@page import="member.vo.Member"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -100,7 +100,7 @@
             <label for="title1">
               <h4>Title</h4>
             </label>
-            <input type="text" id="title1" class="form-control" name="title">
+            <input type="text" id="title1" class="form-control checkTitle" name="title">
           </div>
 
 
@@ -140,7 +140,7 @@
           </div>
 
           <div class="textwrap">
-            <textarea id="textAreaContent" name="content"></textarea>
+            <textarea id="textAreaContent" name="content" class="check"></textarea>
           </div>
           <div class="btnwrap">
             <div class="btn1">
@@ -178,16 +178,8 @@
   </div>
 	
 	<script>
-		// 내용이 비어있는지 확인해주는 함수
-		function validate() {
-			var content = $("[name=content]").val();
-			if(content.trim().length == 0) {
-				alert("내용을 입력하세요");
-				return false;
-			}
-			return true;
-		}
 	
+		
 		// 이미지 업로드시 업로드된 이미지를 미리보기할수있게해줌
 		function fn_loadImg(f) {
 		 	// console.log(f); // <input~ > 태그자체가 들어있음
@@ -233,8 +225,25 @@
 		// type을 button으로 설정하여 진행할때 사용하는것
 		// 이버튼을누르면 submit이 일어나게하고 입력된 글들은 태그들에 묶여있기때문에 그것들을 하나로 묶음
 		$("#submitButton").click(function() {
+			
 			oEditors.getById["textAreaContent"].exec("UPDATE_CONTENTS_FIELD", []);
-			$("#frm").submit(); // 서브밋!
+			
+			var taContent = $("#textAreaContent").val();
+			
+			var title = $(".checkTitle").val();
+			
+			if(title.trim().length == 0) {
+				alert("제목을 입력하세요");
+				$(".checkTitle").focus();
+				return false;
+			}  else if(taContent == "" || taContent == null || taContent == '&nbsp;' || taContent == '<p>&nbsp;</p>' || taContent == '<br>' || taContent == '<br/>' ) {
+				oEditors.getById["textAreaContent"].exec("FOCUS"); //포커싱 
+				alert("내용을 입력하세요");
+				return false;
+			} else {
+				$("#frm").submit(); // 서브밋!
+			}
+			
 		});
 		
 
@@ -262,6 +271,9 @@
 
 		    oEditors.getById["textAreaContent"].exec("PASTE_HTML", [sHTML]);
 		}
+		
+	
+	
 	</script>
 
 </body>

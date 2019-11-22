@@ -64,15 +64,8 @@ public class SelfGuideUpdateServlet extends HttpServlet {
 		// 아래와 같이 MultipartRequest를 생성만 해주면 지정된 경로로 파일이 업로드됨
 		MultipartRequest mRequest = new MultipartRequest(request, saveDirectory, maxSize, "UTF-8", new DefaultFileRenamePolicy());
 
-		// 이미지를 수정했으니 존재하던 이미지를 제거해야함
-		String fileName = mRequest.getParameter("fileName");
-		
-		String filePath = saveDirectory+"/"+fileName;
-		File file = new File(filePath);
 		
 		
-		
-		// =============== 여기서부터 DB에 넣기위해 하는 과정 ====================
 
 		// enctype을 "multipart/form-data"로 선언하고 submit한 데이터들은 request객체가 아닌
 		// MultipartRequest객체로 불러와야함
@@ -80,9 +73,36 @@ public class SelfGuideUpdateServlet extends HttpServlet {
 		String content = mRequest.getParameter("content");
 		String title = mRequest.getParameter("title");
 		int selfNo = Integer.parseInt(mRequest.getParameter("selfNo"));
+		String status = mRequest.getParameter("status");
 		// 파일명을 받는 메소드는 따로있으니 주의 getParameter가아님
-		String photoOriginalFilename = mRequest.getOriginalFileName("up_file");
-		String photoRenameFilename = mRequest.getFilesystemName("up_file");
+		String oldPhotoOriginalFilename = mRequest.getParameter("oriFileName");
+		String oldPhotoRenameFilename = mRequest.getParameter("reFileName");
+		String photoOriginalFilename = mRequest.getOriginalFileName("up_file");; 
+		String photoRenameFilename = mRequest.getFilesystemName("up_file");;
+		
+		
+		String oldPhotoFilePath = saveDirectory+"/"+oldPhotoRenameFilename;
+//		File file = new File(filePath);
+		
+		File upFile = mRequest.getFile("up_file");
+		// 파일 있는지 없는지 비교해서 삭제 추가하는 구간
+		if(upFile!=null && upFile.length()>0) { // 첨부파일이 있으면
+			if(oldPhotoOriginalFilename !=null && oldPhotoRenameFilename !=null) { // 기존파일이 존재하는지
+				File defile = new File(oldPhotoFilePath);
+				defile.delete();
+				if(!directory.exists()){
+		            directory.mkdirs(); //디렉토리가 존재하지 않는다면 생성
+		        }
+			}
+		} else { // 첨부파일이 없는경우
+			if(status.equals("delete")) { // 기존파일을 삭제한경우
+				File defile = new File(oldPhotoFilePath);
+				defile.delete();
+			} else {
+				photoOriginalFilename = oldPhotoOriginalFilename;
+				photoRenameFilename = oldPhotoRenameFilename;
+			}
+		}
 		
 		int result2 = 0;
 		// 변수에 저장한 값들을 SelfGuide형 객체에 저장
@@ -203,12 +223,7 @@ public class SelfGuideUpdateServlet extends HttpServlet {
 		}
 
 		if(result>0) {
-			file.delete();
-			
-			if(!directory.exists()){
-	            directory.mkdirs(); //디렉토리가 존재하지 않는다면 생성
-	        }
-			
+		
 			response.sendRedirect("/views/selfGuide/selfGuideMain.jsp");
 		} else {
 			System.out.println("실패");
