@@ -47,6 +47,7 @@ public class SelfGuideRemoveServlet extends HttpServlet {
 		int result = new SelfGuideService().guideRemove(selfNo);
 		
 		ArrayList<String> removeValueList = new SelfGuidePhotoService().guidePhotoRemoveValue(selfNo);
+		
 		if(!removeValueList.isEmpty()) {
 			for(String removeValue : removeValueList) {
 				System.out.println("성공?");
@@ -57,16 +58,14 @@ public class SelfGuideRemoveServlet extends HttpServlet {
 				if(!directory.exists()){
 		            directory.mkdirs(); //디렉토리가 존재하지 않는다면 생성
 		        }
-
+				
 			}
-		} else {
-			System.out.println("풒킥풒킥");
 		}
 		
 		
 		int result2 = new SelfGuidePhotoService().guidePhotoRemove(selfNo);
 		
-		if(result > 0 && result2 >0) {
+		if(result>0) {
 			file.delete();
 			File directory = new File(saveDirectory);
 			if(!directory.exists()){

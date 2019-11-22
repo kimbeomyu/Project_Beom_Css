@@ -14,19 +14,7 @@
 <body>
 	
 	<script>
-	$(function() {
-		
-		
-	});
-		// 내용이 비어있는지 확인해주는 함수
-		function validate() {
-			var content = $("[name=content]").val();
-			if(content.trim().length == 0) {
-				alert("내용을 입력하세요");
-				return false;
-			}
-			return true;
-		}
+
 	
 		// 이미지 업로드시 업로드된 이미지를 미리보기할수있게해줌
 		function fn_loadImg(f) {
@@ -61,7 +49,7 @@
 	<form action="/guideUpdate" method="post" enctype="multipart/form-data" id="frm">
 		<input type="hidden" name="selfNo" value="${requestScope.guideOne.selfNo }">
 		작성자ID : <input type="text" name="writerId" value="${sessionScope.member.member_ID}" readonly required> <br>
-		제목 : <input type="text" name="title" value="${requestScope.guideOne.selfTitle }"> <br>
+		제목 : <input type="text" class="checkTitle" name="title" value="${requestScope.guideOne.selfTitle }"> <br>
 		<input type="file" name="up_file" onchange="fn_loadImg(this)" style="display:none"> <br>
 		<div> <img id="img-viewer" class="delFile" width="350" src="/upload/photo/${requestScope.guideOne.photoRenameFilename }"></div>
 		
@@ -71,7 +59,7 @@
 		<input type="hidden" name="reFileName" value="${requestScope.guideOne.photoRenameFilename }">
 		<input type="hidden" name="oriFileName" value="${requestScope.guideOne.photoOriginalFilename }">
 		내용 : <textarea rows = "5" cols = "50" id="textAreaContent" name ="content">${requestScope.guideOne.selfContent }</textarea> <br>
-		<input type="button" id="submitButton" value="등록" onclick="return validate();"> <br>
+		<input type="button" id="submitButton" value="등록"> <br>
 	</form>
 
 <script>
@@ -89,7 +77,22 @@
 		// 이버튼을누르면 submit이 일어나게하고 입력된 글들은 태그들에 묶여있기때문에 그것들을 하나로 묶음
 		$("#submitButton").click(function() {
 			oEditors.getById["textAreaContent"].exec("UPDATE_CONTENTS_FIELD", []);
-			$("#frm").submit(); // 서브밋!
+			
+			var taContent = $("#textAreaContent").val();
+			
+			var title = $(".checkTitle").val();
+			
+			if(title.trim().length == 0) {
+				alert("제목을 입력하세요");
+				$(".checkTitle").focus();
+				return false;
+			}  else if(taContent == "" || taContent == null || taContent == '&nbsp;' || taContent == '<p>&nbsp;</p>' || taContent == '<br>' || taContent == '<br/>' ) {
+				oEditors.getById["textAreaContent"].exec("FOCUS"); //포커싱 
+				alert("내용을 입력하세요");
+				return false;
+			} else {
+				$("#frm").submit(); // 서브밋!
+			}
 		});
 		
 
