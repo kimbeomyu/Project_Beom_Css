@@ -1,0 +1,93 @@
+.M-wrap {
+    margin:7% auto;
+    padding: 0;
+    width: 90%;
+    height: 100%;
+    border: 2px solid rgba(128, 128, 128, 0.466);
+    border-radius:10px ;
+}
+
+.M-body{
+    
+    position: relative;
+    height: auto;
+}
+
+.infomodi {
+    height: auto;
+    display: inline-block;
+    max-width: 40%;
+    margin-left: 10%;
+    padding: 0%;
+    
+}
+
+.infomodi2 {
+    height: auto;
+    width: 40%;
+    display: inline-block;
+    float: right;
+    margin-right: 10%;
+    padding: 0%;
+    
+}
+
+.M-header h3{
+    margin-left: 3%; 
+    margin-top: 5%;
+    display: inline-block;
+}
+
+#name,
+#pwd,
+#pwdre,
+#addr,
+#phone {
+    display: inline-block;
+    width: 65%;
+    margin-left: 1.5%;
+    margin-top: 8%;
+}
+
+#mail1 {
+    display: inline-block;
+    width: 30%;
+    margin-top: 8%;
+}
+
+label {
+    margin: 0 auto;
+    width: 20%;
+    font-weight: 700;
+}
+
+#label1 {
+    margin-right: 1.5%;
+    width: 20%;
+}
+
+#modimg1 {
+    display: inline-block;
+    width: 65%;
+    border: 1px solid;
+    height: 14em;
+    margin-left: 22%;
+    margin-top: 20%;
+}
+
+#profileimg {
+    display: inline-block;
+    width: 70%;
+    margin-left: 20%;
+    margin-top: 5%;
+}
+
+#modibtn{
+    background-color: rgba(248, 142, 200, 0.171);
+}
+
+#modibtn:hover{
+    background-color: rgba(255, 0, 140, 0.171);
+}
+
+
